@@ -25,7 +25,7 @@ export class LoginComponent {
   }
 
   hideShowPass() {
-    this.isText=!this.isText;
+    this.isText = !this.isText;
     //this.
   }
 
