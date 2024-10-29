@@ -19,7 +19,7 @@ export class SignupComponent {
   type: string = "password";
   isText: boolean = false;
   eyeIcon: string = "fa-eye-slash";
-  constructor(private fb: FormBuilder, private auth: AuthService) {
+  constructor(private fb: FormBuilder, private auth:AuthService) {
 
   }
 
@@ -44,11 +44,15 @@ export class SignupComponent {
     this.isText ? this.type = "text" : this.type = "password";
 
   }
-  onSignUp() {
+  onSignup() {
     if (this.signupForm.valid) {
-      this.auth.login(this.signupForm.value).subscribe({next:(res)=>{alert(res.message);this.signupForm.reset();}
-    ,error:(err)=>{alert(err?.error.message)}})
-      console.log(this.signupForm.value)
+      console.log(this.signupForm.value);
+      this.auth.signUp(this.signupForm.value).subscribe({
+        next: (res) => {
+          console.log(res.message);
+          this.signupForm.reset();
+        }
+      })
     } else {
       console.log("Form is not valid")
       ValidateForm.validateAllFormFileds(this.signupForm);
