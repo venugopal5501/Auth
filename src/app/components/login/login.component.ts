@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import ValidateForm from '../../helpers/validateform';
 
 @Component({
   selector: 'app-login',
@@ -42,20 +43,10 @@ export class LoginComponent implements OnInit {
       console.log(this.loginForm.value)
     } else {
       console.log("Form is not valid")
-      this.validateAllFormFileds(this.loginForm);
+      ValidateForm.validateAllFormFileds(this.loginForm);
       alert("Your form is invalid")
     }
   }
-  private validateAllFormFileds(formGroup: FormGroup) {
-    Object.keys(formGroup.controls).forEach(field => {
-      const control =
-        formGroup.get(field);
-      if (control instanceof FormControl) {
-        control.markAsDirty({ onlySelf: true });
-      } else if (control instanceof FormGroup) {
-        this.validateAllFormFileds(control)
-      }
-    })
-  }
+  
 
 }

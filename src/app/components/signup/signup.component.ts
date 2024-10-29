@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import ValidateForm from '../../helpers/validateform';
 
 @Component({
   selector: 'app-signup',
@@ -47,20 +48,10 @@ export class SignupComponent {
       console.log(this.signupForm.value)
     } else {
       console.log("Form is not valid")
-      this.validateAllFormFileds(this.signupForm);
+      ValidateForm.validateAllFormFileds(this.signupForm);
       alert("Your form is invalid")
     }
   }
-  private validateAllFormFileds(formGroup: FormGroup) {
-    Object.keys(formGroup.controls).forEach(field => {
-      const control =
-        formGroup.get(field);
-      if (control instanceof FormControl) {
-        control.markAsDirty({ onlySelf: true });
-      } else if (control instanceof FormGroup) {
-        this.validateAllFormFileds(control)
-      }
-    })
-  }
+  
 
 }
