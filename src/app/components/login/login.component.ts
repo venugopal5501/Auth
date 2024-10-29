@@ -4,6 +4,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import ValidateForm from '../../helpers/validateform';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -18,7 +19,7 @@ export class LoginComponent implements OnInit {
   isText: boolean = false;
   eyeIcon: string = "fa-eye-slash";
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder, private auth : AuthService) { }
 
   ngOnInit(): void {
     this.loginForm = this.fb.group({
@@ -38,9 +39,12 @@ export class LoginComponent implements OnInit {
     this.type = this.isText ? "text" : "password";
   }
 
-  onSubmit() {
+  onLogin() {
     if (this.loginForm.valid) {
+      
       console.log(this.loginForm.value)
+      this.auth.login(this.loginForm.value).subscribe({next:(res)=>{alert(res.message)}
+    ,error:(err)=>{alert(err?.error.message)}})
     } else {
       console.log("Form is not valid")
       ValidateForm.validateAllFormFileds(this.loginForm);
